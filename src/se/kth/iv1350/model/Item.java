@@ -2,18 +2,28 @@ package src.se.kth.iv1350.model;
 import src.se.kth.iv1350.dto.ItemDTO;
 
 public class Item {
-    private int quantity;
     private ItemDTO itemInfo;
+    private int quantity;
 
-    public Item (ItemDTO itemInfo){
-        this.itemInfo = itemInfo;
+    public Item (ItemDTO item, int quantity){
+        this.itemInfo = item;
+        this.quantity = quantity;
+    }
+    public Item (ItemDTO item){
+        this(item, 1);
     }
 
+    // För salelog/sales
     /**
      * Increment an already added item when it's more than one of the same.
      */
     public void increment(){
         this.quantity++;
+    }
+
+    // För när vi uppdaterar inventory.
+    public void decrement(){
+        this.quantity--;
     }
 
     /**
@@ -22,5 +32,11 @@ public class Item {
      */
     public void setQuantity(int quantity){
         this.quantity = quantity;
+    }
+    public ItemDTO getItemDTO() {
+        return itemInfo;
+    }
+    public int getQuantity() {
+        return quantity;
     }
 }
