@@ -1,9 +1,8 @@
 package src.se.kth.iv1350.model;
 
 public class CashPayment {
-    private Amount paidAmt;
+    private final Amount paidAmt; // TODO ändra till final
     private Amount totalCost;
-    private Amount change;          //TODO this attr is not in UML
 
     /**
      * The cash that is paid for the entire sale.
@@ -18,6 +17,10 @@ public class CashPayment {
 
     }
 
+    public void setTotalCost(Amount totalCost) {
+        this.totalCost = new Amount(totalCost);
+    }
+
     //TODO look at getters
     public Amount getPaidAmt() {
         return paidAmt;
@@ -27,7 +30,10 @@ public class CashPayment {
         return totalCost;
     }
 
-    Amount getChange() {
+    // TODO här är change negativt. Just nu är det det vi tror är rätt. Vi vet först efter accountinssystem är gjord.
+    public Amount getChange() {
+        Amount change = new Amount(this.totalCost);
+        change.subtractAmount(this.paidAmt);
         return change;
     }
 }
