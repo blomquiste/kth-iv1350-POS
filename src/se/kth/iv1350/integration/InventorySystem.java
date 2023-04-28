@@ -1,7 +1,6 @@
 package src.se.kth.iv1350.integration;
 
 import src.se.kth.iv1350.dto.ItemDTO;
-import src.se.kth.iv1350.dto.SaleDTO;
 import src.se.kth.iv1350.model.Item;
 
 import java.io.BufferedReader;
@@ -41,12 +40,12 @@ public class InventorySystem {
             while((line = bufferedReader.readLine()) != null){
                 String [] splitArray = line.split(splitCsvBy);
                 Item item = new Item(new ItemDTO(
-                                Integer.parseInt(splitArray[0]),
-                                splitArray[1],
-                                splitArray[2],
-                                Integer.parseInt(splitArray[3]),
-                                Integer.parseInt(splitArray[4])),
-                                Integer.parseInt(splitArray[5]));
+                                Integer.parseInt(splitArray[0]),    //itemID
+                                splitArray[1],                      //name
+                                splitArray[2],                      //description
+                                Integer.parseInt(splitArray[3]),    //price
+                                Integer.parseInt(splitArray[4])),   //vatRateGroupCode
+                                Integer.parseInt(splitArray[5]));   //quantity
                 this.inventoryTable.put(item.getItemDTO().getItemID(), item);
             }
         } catch (FileNotFoundException e){
@@ -64,11 +63,7 @@ public class InventorySystem {
         return item.getItemDTO();
     }
 
-    public void updateInventory(SaleDTO saleInfo){
-//        saleInfo
-        //TODO do it
-        // TODO Nedan skall istället finnas med i updateInventory
-//        item.decrement();
-//        this.inventoryTable.put(itemID, item); // Något osäker om replace eller ens put behövs
+    public void updateInventory(){
+        // TODO Flat based database. What parameters are needed?
     }
 }
