@@ -4,6 +4,7 @@ import java.util.List;
 import src.se.kth.iv1350.model.Amount;
 
 
+// TODO ska discountDTO finnas med i SaleDTO och/eller SaleItemDTO?
 public class SaleDTO {
     private final LocalDateTime timeOfSale;
     private final List<SaleItemDTO> saleItemsInfo;
@@ -38,7 +39,7 @@ public class SaleDTO {
         StringBuilder builder = new StringBuilder();
         for (SaleItemDTO itemInfo: saleItemsInfo) {
             builder.append("%-40s%s%n".formatted(itemInfo.getName(), itemInfo.getTotalPrice()));
-            builder.append("(" + itemInfo.getQuantity() + " * " + itemInfo.getPrice() + "/each)\n");
+            builder.append("(" + itemInfo.getQuantity() + " * " + itemInfo.getUnitPrice() + "/st.)\n");
         }
 //        builder.append("\n");
 //        builder.append("%-40s%s%n".formatted("Running total:",totalPrice));

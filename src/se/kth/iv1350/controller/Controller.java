@@ -2,39 +2,47 @@ package src.se.kth.iv1350.controller;
 
 import src.se.kth.iv1350.dto.DiscountDTO;
 import src.se.kth.iv1350.dto.ItemDTO;
-import src.se.kth.iv1350.integration.DiscountRegister;
-import src.se.kth.iv1350.integration.InventorySystem;
-import src.se.kth.iv1350.integration.Printer;
+import src.se.kth.iv1350.integration.*;
 import src.se.kth.iv1350.model.CashPayment;
 import src.se.kth.iv1350.model.CashRegister;
 import src.se.kth.iv1350.model.Sale;
 import src.se.kth.iv1350.model.Amount;
-import src.se.kth.iv1350.integration.SaleLog;
 
+// TODO Registry createor for external database setup?????????? Use getters. What about salelog?
+/**
+ * This is the application's only controller class. All calls to the model pass
+ * through here.
+ */
 public class Controller {
     private Printer printer;
+    private Display display;
     private SaleLog saleLog;
-    private InventorySystem is = new InventorySystem("src/se/kth/iv1350/startup/inventory_items.csv");
+    private ItemRegistry itemRegistry;
+    private DiscountRegister discountRegister;
+    private AccountingSystem accountingSystem;
     private CashRegister cashRegister;
-    private DiscountRegister discountRegister = new DiscountRegister();
     private Sale currentSale;
 
     /**
-     * Constructor
-     * @param printer The printer.
-     * @param saleLog The object that loggs all transactions.
+     * Creates a new instance.
+     * @param printer Interface to printer (prints receipts and display)
+     * @param registerCreator Used to get all classes that handle database calls.
      */
-    public Controller (Printer printer, SaleLog saleLog){
+    public Controller (Printer printer, Display display, RegisterCreator registerCreator){
         this.printer = printer;
-        this.saleLog = saleLog;
-        this.cashRegister = new CashRegister();
+        this.display = display;
+        this.saleLog = registerCreator.getSaleLog();
+        this.itemRegistry = registerCreator.getInventorySystem();
+        this.discountRegister = registerCreator.getDiscountRegister();
+        this.accountingSystem = registerCreator.getAccountingSystem();
+        this.cashRegister = new CashRegister(CashRegister.INITIAL_BALANCE);
     }
 
     /**
      * Start a new sale. This method must be called before doing anything else during a sale.
      */
     public void startSale(){
-        this.currentSale = new Sale();
+        this.currentSale = new Sale(itemRegistry);
     }
 
     // TODO ändra i UML
@@ -46,32 +54,37 @@ public class Controller {
     }
 
     public void registerItem(int itemID, int quantity){
-        ItemDTO itemInfo = is.getItemInfo(itemID);
+        ItemDTO itemInfo = itemRegistry.getItemInfo(itemID);
         currentSale.addItem(itemInfo, quantity);
-        currentSale.displayCurrentSale(printer);
+        currentSale.displayOpenSale(display);
     }
 
     public void endSale(){
         currentSale.endSale();
-        currentSale.displayEndOfSale(printer);
+        currentSale.displayCheckout(display);
     }
 
     public void discountRequest (int customerID){
-        //TODO do it
         DiscountDTO discountDTO = discountRegister.getDiscount(customerID);
         currentSale.applyDiscount(discountDTO);
+        currentSale.displayCheckout(display);
         currentSale.endSale();
-        currentSale.displayEndOfSale(printer);
     }
 
+    /**
+     * Handles payment.
+     * Updates the balance of the cash register where
+     * the payment was performed. Calculates change. Prints the receipt.
+     * Loggs sale. Updates inventory and accounting system.
+     * @param paidAmt The paid amount.
+     */
     public void pay(Amount paidAmt){
         CashPayment payment = new CashPayment(paidAmt);
         currentSale.pay(payment);
-        // TODO
         cashRegister.addPayment(payment);
         saleLog.logSale(currentSale);
-        // 1.5 UpdateInventory   // TODO till txt fil?
-        // 1.6 AccountingSystem.updateToAccounting   // TODO till txt fil?
+        currentSale.updateInventory();
+        accountingSystem.updateToAccountingSystem(currentSale);  // TODO till txt fil?
         currentSale.printReceipt(printer);
         currentSale = null;
     }

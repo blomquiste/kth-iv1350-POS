@@ -11,10 +11,10 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 // TODO package private kontruktor och final attribute?
-public class Display {
+public class SaleOutput {
     private final Sale sale;
     private List<Item> listOfItems;
-    Display(Sale sale) {
+    SaleOutput(Sale sale) {
         this.sale = sale;
         this.listOfItems = new ArrayList<>(sale.getCollectionOfItems());
     }
@@ -23,11 +23,9 @@ public class Display {
         List<SaleItemDTO> saleItemsInfo = new ArrayList<>();
         for (Item item : listOfItems) {
             saleItemsInfo.add(new SaleItemDTO(
-                    item.getItemDTO().getName(),        //itemName
-                    item.getItemDTO().getDescription(), //itemDescription
-                    item.getItemDTO().getPrice(),       //itemPrice
-                    item.getQuantity(),                 //itemQuantity
-                    item.getTotalAmount()               //totalPrice
+                    item.getItemDTO(),        //itemInfo incl. name, description, price, vat rate
+                    item.getQuantity(),       //quantity
+                    item.getTotalPrice()     //totalPrice
             ));
         }
         return saleItemsInfo;
@@ -35,17 +33,18 @@ public class Display {
     public SaleDTO getSaleInfo() {
         List<SaleItemDTO> saleItems = getSaleItemsInfo();
 
+        // Totalbelopp
+        Amount runningTotal = sale.getRunningTotal();
+
         // Momsberäkning
-        Amount totalVATAmount = new Amount(0);
-        List<Amount> vatAmounts = listOfItems.stream().map(Item::getVatAmount).collect(toList());
-        totalVATAmount = totalVATAmount.plus(vatAmounts);
+        Amount totalVATAmount = sale.getTotalVATAmount();
 
         return new SaleDTO(
-                saleItems,              // list of saleItemInfo (DTO)
-                sale.getRunningTotal(), // Running total
-                totalVATAmount);        // VAT for the total sale
+                saleItems,            // list of saleItemInfo (DTO)
+                runningTotal,         // Running total
+                totalVATAmount);      // VAT for the total sale
     }
-    public String createRunningSaleString() {
+    public String createOpenSaleString() {
         // Sorterar listan efter när den reggats.
         Collections.sort(listOfItems, Comparator.comparing(Item::getTimeOfUpdate).reversed());
 
@@ -58,7 +57,7 @@ public class Display {
         return builder.toString();
     }
 
-    public String createEndOfSaleString() {
+    public String createCheckoutString() {
         // Sorterar listan per namn
         Collections.sort(listOfItems, Comparator.comparing(Item::getName));
 
@@ -75,6 +74,6 @@ public class Display {
     // TODO Eventuellt ändra till public String createRunningSaleString()
     @Override
     public String toString() {
-        return createRunningSaleString();
+        return createOpenSaleString();
     }
 }

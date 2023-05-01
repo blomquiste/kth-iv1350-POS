@@ -1,6 +1,6 @@
 package src.se.kth.iv1350.integration;
 
-import src.se.kth.iv1350.model.Display;
+import src.se.kth.iv1350.model.SaleOutput;
 import src.se.kth.iv1350.model.Receipt;
 
 /**
@@ -21,39 +21,14 @@ public class Printer {
      * <code>System.out</code>
      * @param receipt The receipt
      */
-    public void print(Receipt receipt) {
+    public void printReceipt(Receipt receipt) {
         System.out.println("----------------- Receipt follows ----------------");
         System.out.println(receipt);
         System.out.println("------------------ End of receipt ----------------");
 
     }
-    public void print(SaleLog saleLog) {
+    public void printSaleLog(SaleLog saleLog) {
         // TODO
     }
 
-    /**
-     * Displays the shopping cart with running total
-     * It's a dummy implementation that prints to
-     * <code>System.out</code>
-     * @param display The display
-     */
-    public void printCurrentSale(Display display) {
-        // TODO Eventuellt ändra till public String createRunningSaleString()
-        System.out.println("----------------- Display follows ----------------");
-        System.out.println(display.createRunningSaleString());
-        System.out.println("------------------ End of Display ----------------");
-
-    }
-
-    /**
-     * Displays the checkout shopping cart with total amount and vat.
-     * It's a dummy implementation that prints to
-     * <code>System.out</code>
-     * @param display The display
-     */
-    public void printEndOfSale(Display display) {
-        System.out.println("--------------- End of Sale follows --------------");
-        System.out.println(display.createEndOfSaleString());
-        System.out.println("---------------- End of End of Sale --------------");
-    }
 }

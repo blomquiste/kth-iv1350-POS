@@ -7,24 +7,19 @@ public class Item {
     private final ItemDTO itemInfo;
     private LocalDateTime timeOfUpdate;
     private int quantity;
-    private Amount totalAmount;
 
-    public Item (ItemDTO item, int quantity){
+    public Item(ItemDTO item, int quantity){
         this.timeOfUpdate = LocalDateTime.now();
         this.itemInfo = item;
         this.quantity = quantity;
-        this.totalAmount = new Amount(itemInfo.getPrice());
-        this.totalAmount = totalAmount.multiply(quantity);
     }
-    public Item (ItemDTO item){
+    public Item(ItemDTO item){
         this(item, 1);
     }
     public void addItem(Item anotherItem){
         this.timeOfUpdate = LocalDateTime.now();
         if (this.equals(anotherItem)) {
             addToQuantity(anotherItem.getQuantity());
-//            totalAmount.addAmount(anotherItem.getTotalAmount());
-            totalAmount = totalAmount.plus(anotherItem.getTotalAmount());
         }
     }
     /**
@@ -60,14 +55,14 @@ public class Item {
     /**
      * Returns the total amount i.e. the item price x quantity.
      */
-    public Amount getTotalAmount() {
-        return totalAmount;
+    public Amount getTotalPrice() {
+        return getUnitPrice().multiply(quantity);
     }
-
     public Amount getVatAmount() {
         double vatRate = itemInfo.getVATRate();
-        return totalAmount.multiply(vatRate);
+        return getTotalPrice().multiply(vatRate);
     }
+    public Amount getUnitPrice() {return itemInfo.getUnitPrice();}
 
     public String getName() {
         return itemInfo.getName();

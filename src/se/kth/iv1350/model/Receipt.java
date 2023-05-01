@@ -37,20 +37,20 @@ public class Receipt {
         List<Item> listOfItems = new ArrayList<>(sale.getCollectionOfItems());
 
         // Momsberäkning
-        Amount totalVATAmount = new Amount(0);
-        List<Amount> vatAmounts = listOfItems.stream().map(Item::getVatAmount).collect(toList());
-        totalVATAmount = totalVATAmount.plus(vatAmounts);
+        Amount totalVATAmount = sale.getTotalVATAmount();
 
         // Sorterar listan per namn
         Collections.sort(listOfItems, Comparator.comparing(Item::getName));
 
         // Pretty printing
         StringBuilder builder = new StringBuilder();
-        builder.append("%s\n%s\n".formatted("Receipt ", this.timeOfSale.format(formatter)));
+        builder.append("%-22s%s%n".formatted("", "RECEIPT"));
+        builder.append("%-19s%s%n".formatted("", "Grocery store"));
+        builder.append("%-16s%s%n".formatted("", this.timeOfSale.format(formatter)));
         builder.append("\n");
         for (Item item: listOfItems) {
-            builder.append("%-40s%s%n".formatted(item.getItemDTO().getName(), item.getTotalAmount()));
-            builder.append("(" + item.getQuantity() + " * " + item.getItemDTO().getPrice() + "/each)\n");
+            builder.append("%-40s%s%n".formatted(item.getName(), item.getTotalPrice()));
+            builder.append("(" + item.getQuantity() + " * " + item.getUnitPrice() + "/each)\n");
         }
         builder.append("\n");
         builder.append("%-40s%s%n".formatted("Total Cost:", this.sale.getPayment().getTotalCost()));

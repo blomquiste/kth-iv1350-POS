@@ -17,11 +17,11 @@ public class Amount {
      * @param amount The amount represented by the newly created instance.
      */
     public Amount(double amount){
-        this(new Locale("sv", "SE"), amount);
+        this(amount, new Locale("sv", "SE"));
     }
-    public Amount(Locale locale, double amount) {
-        this.locale = locale;
+    public Amount(double amount, Locale locale) {
         this.currency = Currency.getInstance(locale);
+        this.locale = locale;
         this.amount = amount;
     }
 
@@ -82,19 +82,11 @@ public class Amount {
     public Amount multiply(double multiplier) {
         return new Amount(multiplier * amount);
     }
+    public Double getAmount() {return amount;}
 
     @Override
     public String toString() {
         return String.format(locale, "%,.2f %s",this.amount, this.currency.getSymbol(locale));
     }
     // TODO behövs en override på equal?
-
-    // TODO kommer dessa användas?
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
 }
