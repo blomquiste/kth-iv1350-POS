@@ -59,7 +59,7 @@ public class View {
      * in all possible ways.
      */
     public void hardkodadegrejer() {
-        // FirstSale - with staff discount
+        // FirstSale - with staff discount, not yet implemented
         contr.startSale();
         contr.registerItem(5);
         contr.registerItem(5);
@@ -68,11 +68,11 @@ public class View {
         contr.registerItem(1);
         contr.registerItem(1, 2);
         contr.endSale();
-        contr.discountRequest(880822);
+//        contr.discountRequest(880822);
         contr.endSale();
         contr.pay(new Amount(500));
 
-        // SecondSale - with member discount
+        // SecondSale - with member discount, not yet implemented
         contr.startSale();
         contr.registerItem(5);
         contr.registerItem(5);
@@ -81,7 +81,7 @@ public class View {
         contr.registerItem(1);
         contr.registerItem(1, 2);
         contr.endSale();
-        contr.discountRequest(810222);
+//        contr.discountRequest(810222);
         contr.endSale();
         contr.pay(new Amount(500));
 
