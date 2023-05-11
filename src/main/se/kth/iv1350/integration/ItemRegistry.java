@@ -3,6 +3,7 @@ package se.kth.iv1350.integration;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Item;
 import se.kth.iv1350.model.VAT;
+import se.kth.iv1350.util.LogHandler;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class ItemRegistry {
     private final String flatFileDb;
     private final String filePath;
     private Map<Integer, ItemData> inventoryTable = new HashMap<>();
+    private LogHandler logger;
 
     /**
      * Creates a new instance of an inventory system as {@link ItemRegistry}.
@@ -31,6 +33,7 @@ public class ItemRegistry {
         // TODO ska vi flytta ut hela inläsningsprocessen till en separat metod????
         this.filePath = filePath;
         this.flatFileDb = fileName;
+        this.logger = new LogHandler();
         addItemData();
     }
     /**
@@ -53,12 +56,14 @@ public class ItemRegistry {
                         Integer.parseInt(splitArray[6]));   //quantity
                 this.inventoryTable.put(item.articleNo, item);
             }
-        } catch (IOException e){
-            // TODO. Logga här, catch och rethrow eller ingen try catch alls?
-            System.out.println("IOE exception");
-            // Logga här?
-            e.printStackTrace();
-            throw e;
+        } catch (FileNotFoundException ex){
+            // TODO Kan man kasta bara ex? Kommer den då skickas som en IOException?
+            logger.logException(ex);
+            throw ex;
+        } catch (IOException ex){
+            // TODO ska addItemData loggas här?
+            logger.logException(ex);
+            throw ex;
         }
     }
 
@@ -67,12 +72,12 @@ public class ItemRegistry {
      * @param  itemID The items unique article number a.k.a item identifier.
      * @return Item information as a {@link ItemDTO}.
      * @throws ItemNotFoundException when item ID does not exist in inventory.
-     * @throws InventorySystemException when database call failed.
+     * @throws ItemRegistryException when database call failed.
      */
-    //TODO Are we supposed to throw InventorySystemException as well with method?
+    //TODO Are we supposed to throw ItemRegistryException as well with method?
     public ItemDTO getItemInfo(int itemID) throws ItemNotFoundException {
         if (itemID == DATABASE_NOT_FOUND) {
-            throw new InventorySystemException("Detailed message about database fail");
+            throw new ItemRegistryException("Detailed message about database fail");
         } else if (inventoryTable.containsKey(itemID)) {
             ItemData item = this.inventoryTable.get(itemID);
             return new ItemDTO(
@@ -108,13 +113,12 @@ public class ItemRegistry {
                 bufferedWriter.newLine();
             }
             bufferedWriter.flush();
-        } catch (FileNotFoundException e){
-            System.out.println("The file was not found");
-            e.printStackTrace(); //Skriver ut vart felet var någonstans.
-
-        } catch (IOException e){
-            System.out.println("IOE exception");
-            e.printStackTrace();
+        } catch (FileNotFoundException ex){
+            logger.logException(ex);
+            throw new ItemRegistryException("Detailed message about database fail");
+        } catch (IOException ex){
+            logger.logException(ex);
+            throw new ItemRegistryException("Detailed message about database fail");
         }
     }
 

@@ -22,14 +22,9 @@ public class RegisterCreator {
     /**
      * Creates an instance of {@link RegisterCreator}.
      */
-    public RegisterCreator(LogHandler logger) throws IOException {
+    public RegisterCreator() throws IOException {
         this.saleLog = new SaleLog();
-        try {
-            this.itemRegistry = new ItemRegistry(FILE_PATH, IS_FLAT_FILE_DB);
-        } catch (IOException e) {
-            // logga här kanske, att det är strul med ItemReg set up?
-            throw e;
-        }
+        this.itemRegistry = new ItemRegistry(FILE_PATH, IS_FLAT_FILE_DB);
         this.discountRegister = new DiscountRegister(FILE_PATH, DR_FLAT_FILE_DB);
         this.accountingSystem = new AccountingSystem(FILE_PATH, AS_FLAT_FILE_DB);
     }

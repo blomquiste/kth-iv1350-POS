@@ -4,8 +4,7 @@ import se.kth.iv1350.integration.Display;
 import se.kth.iv1350.integration.RegisterCreator;
 import se.kth.iv1350.view.View;
 import se.kth.iv1350.integration.Printer;
-import se.kth.iv1350.util.LogHandler;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 
 /**
@@ -20,17 +19,16 @@ public class Main {
     public static void main (String[] args) {
         //TODO look at these things: they are not in the UML CD
         try {
-            LogHandler logger = new LogHandler();
             Printer printer = new Printer();
             Display display = new Display();
-            RegisterCreator registerCreator = new RegisterCreator(logger);
+            RegisterCreator registerCreator = new RegisterCreator();
             Controller contr = new Controller(printer, display, registerCreator);
 
-            View view = new View(contr, logger);
-            view.hardKodadeGrejer1();
-            view.hardKodadeGrejer2();
-            view.hardKodadeGrejer3();
-            view.hardKodadeGrejer4();
+            View view = new View(contr);
+            view.hardKodadeGrejerWithFailureAndErrors();
+            view.HardKodadeGrejerWithStaffDiscount();
+            view.hardKodadeGrejerWithMemberDiscount();
+            view.hardKodadeGrejerWithoutDiscount();
         } catch (IOException ex) {
             System.out.println("Unable to start the application");
             ex.printStackTrace();
