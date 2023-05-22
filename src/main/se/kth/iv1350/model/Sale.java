@@ -19,6 +19,7 @@ public class Sale {
     private Amount totalAmount;
     private Amount totalVAT;
     private Amount discountAmount;
+    private Amount totalRevenue;
 
     /**
      * Creates a new instance, representing a sale made by a customer.
@@ -142,7 +143,6 @@ public class Sale {
     public void pay(CashPayment payment) {
         payment.calculateTotalCost(this);
         this.payment = payment;
-        notifyObservers();
     }
 
     /**
@@ -152,6 +152,7 @@ public class Sale {
     public void printReceipt(Printer printer) {
         Receipt receipt = new Receipt(this);
         printer.printReceipt(receipt);
+        notifyObservers();
     }
 
     /**
@@ -196,6 +197,7 @@ public class Sale {
             this.totalAmount = new Amount(runningTotal);
             this.totalVAT = new Amount(runningVAT);
         }
+
     }
 
     private void notifyObservers() {

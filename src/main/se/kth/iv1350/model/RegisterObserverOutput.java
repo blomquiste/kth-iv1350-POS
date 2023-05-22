@@ -1,11 +1,16 @@
 package se.kth.iv1350.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A template for a register observer that outputs the total revenue when it
  * has changed.
  */
 public abstract class RegisterObserverOutput
         implements RegisterObserver {
+
+    private Amount sumRevenue = new Amount(0);
 
     /**
      * Called when total revenue has been changed.
@@ -17,8 +22,9 @@ public abstract class RegisterObserverOutput
     }
 
     private void showTotalRevenue(Amount totalRevenue) {
+        sumRevenue = sumRevenue.plus(totalRevenue);
         try {
-            doShowTotalRevenue(totalRevenue);
+            doShowTotalRevenue(sumRevenue);
         } catch (Exception exception) {
             handleErrors(exception);
         }

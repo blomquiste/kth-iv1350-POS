@@ -11,7 +11,7 @@ public class TotalRevenueView extends RegisterObserverOutput {
      */
     @Override
     protected void doShowTotalRevenue(Amount totalRevenue){
-        System.out.println("💶 Total revenue: " + totalRevenue);
+        System.out.println("Total revenue: " + totalRevenue);
     }
 
     /**
