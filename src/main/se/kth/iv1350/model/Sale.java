@@ -12,12 +12,14 @@ import static java.util.stream.Collectors.toList;
 public class Sale {
     private LocalDateTime timeOfSale;
     private Map<Integer, Item> shoppingCart = new HashMap<>();
+    private List<RegisterObserver> registerObservers = new ArrayList<>();
     private CashPayment payment;
     private DiscountDTO discount = new DiscountDTO();
     private ItemRegistry itemRegistry;
     private Amount totalAmount;
     private Amount totalVAT;
     private Amount discountAmount;
+    private Amount totalRevenue;
 
     /**
      * Creates a new instance, representing a sale made by a customer.
@@ -150,6 +152,7 @@ public class Sale {
     public void printReceipt(Printer printer) {
         Receipt receipt = new Receipt(this);
         printer.printReceipt(receipt);
+        notifyObservers();
     }
 
     /**
@@ -194,5 +197,15 @@ public class Sale {
             this.totalAmount = new Amount(runningTotal);
             this.totalVAT = new Amount(runningVAT);
         }
+
+    }
+
+    private void notifyObservers() {
+        for (RegisterObserver obs : registerObservers) {
+            obs.totalRevenueChanged(this.totalAmount);
+        }
+    }
+    public void addObserver(RegisterObserver observer) {
+        registerObservers.add(observer);
     }
 }

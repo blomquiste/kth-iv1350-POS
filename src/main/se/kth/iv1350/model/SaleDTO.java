@@ -13,6 +13,7 @@ public class SaleDTO {
     private final Amount totalPrice;
     private final Amount totalVATAmount;
     private final Amount totalDiscounts;
+    public enum finalPrice {totalPrice};
 
     /**
      * Creates a new instance representing a particular sale.

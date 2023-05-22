@@ -3,7 +3,9 @@ package se.kth.iv1350.view;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.controller.OperationFailedException;
 import se.kth.iv1350.integration.ItemNotFoundException;
+import se.kth.iv1350.integration.TotalRevenueFileOutput;
 import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.model.RegisterObserver;
 import se.kth.iv1350.util.LogHandler;
 import java.io.IOException;
 
@@ -15,6 +17,9 @@ public class View {
     private Controller contr;
     private ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
     private LogHandler logger;
+    private TotalRevenueView totalRevenueView;
+    private TotalRevenueFileOutput totalRevenueFileOutput;
+
 
     /**
      * Creates a new instance.
@@ -22,6 +27,10 @@ public class View {
      */
     public View(Controller contr) throws IOException {
         this.contr = contr;
+        totalRevenueView = new TotalRevenueView();
+        contr.addObserver(totalRevenueView);
+        totalRevenueFileOutput = new TotalRevenueFileOutput();
+        contr.addObserver(totalRevenueFileOutput);
         this.logger = new LogHandler();
     }
 
