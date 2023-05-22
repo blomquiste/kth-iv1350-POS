@@ -5,7 +5,7 @@ package se.kth.iv1350.model;
  * The sale is paid in cash.
  */
 public class CashPayment {
-    private final Amount paidAmt; // TODO ändra till final
+    private final Amount paidAmt;
     private Amount totalCost;
 
     /**

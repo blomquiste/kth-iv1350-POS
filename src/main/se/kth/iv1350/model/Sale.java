@@ -12,6 +12,7 @@ import static java.util.stream.Collectors.toList;
 public class Sale {
     private LocalDateTime timeOfSale;
     private Map<Integer, Item> shoppingCart = new HashMap<>();
+    private List<RegisterObserver> registerObservers = new ArrayList<>();
     private CashPayment payment;
     private DiscountDTO discount = new DiscountDTO();
     private ItemRegistry itemRegistry;
@@ -141,6 +142,7 @@ public class Sale {
     public void pay(CashPayment payment) {
         payment.calculateTotalCost(this);
         this.payment = payment;
+        notifyObservers();
     }
 
     /**
@@ -194,5 +196,14 @@ public class Sale {
             this.totalAmount = new Amount(runningTotal);
             this.totalVAT = new Amount(runningVAT);
         }
+    }
+
+    private void notifyObservers() {
+        for (RegisterObserver obs : registerObservers) {
+            obs.totalRevenueChanged(this.totalAmount);
+        }
+    }
+    public void addObserver(RegisterObserver observer) {
+        registerObservers.add(observer);
     }
 }

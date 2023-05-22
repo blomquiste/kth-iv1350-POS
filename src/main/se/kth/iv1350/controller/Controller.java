@@ -1,14 +1,13 @@
 package se.kth.iv1350.controller;
 import se.kth.iv1350.integration.DiscountDTO;
-import se.kth.iv1350.model.SaleDTO;
+import se.kth.iv1350.model.*;
 import se.kth.iv1350.integration.*;
-import se.kth.iv1350.model.CashPayment;
-import se.kth.iv1350.model.CashRegister;
-import se.kth.iv1350.model.Sale;
-import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.util.LogHandler;
+import se.kth.iv1350.view.TotalRevenueView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the application's only controller class. All calls to the model pass
@@ -24,6 +23,8 @@ public class Controller {
     private CashRegister cashRegister;
     private Sale currentSale;
     private LogHandler logger;
+    private List<RegisterObserver> registerObservers =
+            new ArrayList<>();
 
     /**
      * Creates a new instance.
@@ -42,10 +43,23 @@ public class Controller {
     }
 
     /**
+     * The specified observer will be notified when a rental
+     * has been paid. There will be notifications only for
+     * rentals that are started after this method is called.
+     *
+     * @param obs The observer to notify.
+     */
+    public void addObserver(RegisterObserver obs) { registerObservers.add(obs);
+    }
+
+    /**
      * Start a new sale. This method must be called before doing anything else during a sale.
      */
     public void startSale(){
         this.currentSale = new Sale(itemRegistry);
+        for(RegisterObserver registerObserver : registerObservers) {
+            currentSale.addObserver(registerObserver);
+        }
     }
 
     /**
@@ -131,5 +145,8 @@ public class Controller {
         accountingSystem.updateToAccountingSystem(currentSale);
         currentSale.printReceipt(printer);
         currentSale = null;
+    }
+
+    public void addRegisterObserver(TotalRevenueView totalRevenueView) {
     }
 }

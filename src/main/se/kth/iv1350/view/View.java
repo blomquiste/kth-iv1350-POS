@@ -15,6 +15,8 @@ public class View {
     private Controller contr;
     private ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
     private LogHandler logger;
+    private TotalRevenueView totalRevenueView;
+
 
     /**
      * Creates a new instance.
@@ -22,6 +24,8 @@ public class View {
      */
     public View(Controller contr) throws IOException {
         this.contr = contr;
+        totalRevenueView = new TotalRevenueView();
+        contr.addObserver(totalRevenueView);
         this.logger = new LogHandler();
     }
 
