@@ -30,7 +30,6 @@ public class ItemRegistry {
      * @param fileName filename of the flat file database (csv)
      */
     ItemRegistry(String filePath, String fileName) throws IOException {
-        // TODO ska vi flytta ut hela inläsningsprocessen till en separat metod????
         this.filePath = filePath;
         this.flatFileDb = fileName;
         this.logger = new LogHandler();
@@ -57,11 +56,9 @@ public class ItemRegistry {
                 this.inventoryTable.put(item.articleNo, item);
             }
         } catch (FileNotFoundException ex){
-            // TODO Kan man kasta bara ex? Kommer den då skickas som en IOException?
             logger.logException(ex);
             throw ex;
         } catch (IOException ex){
-            // TODO ska addItemData loggas här?
             logger.logException(ex);
             throw ex;
         }
@@ -74,7 +71,6 @@ public class ItemRegistry {
      * @throws ItemNotFoundException when item ID does not exist in inventory.
      * @throws ItemRegistryException when database call failed.
      */
-    //TODO Are we supposed to throw ItemRegistryException as well with method?
     public ItemDTO getItemInfo(int itemID) throws ItemNotFoundException {
         if (itemID == DATABASE_NOT_FOUND) {
             throw new ItemRegistryException("Detailed message about database fail");

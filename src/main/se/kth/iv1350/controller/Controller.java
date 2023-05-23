@@ -69,7 +69,6 @@ public class Controller {
      * @throws ItemNotFoundException when item ID does not exist in inventory
      * @throws OperationFailedException when there is a fail with inventory system
      */
-    //TODO ILLEGAL SMEAGAL
     public SaleDTO registerItem(int itemID) throws OperationFailedException, ItemNotFoundException {
         return registerItem(itemID, 1);
     }
@@ -83,7 +82,6 @@ public class Controller {
      * @throws OperationFailedException when there is a fail with inventory system
      * @throws IllegalStateException if this method is called before initiating a new sale
      */
-    //TODO ILLEGAL SMEAGAL
     public SaleDTO registerItem(int itemID, int quantity) throws ItemNotFoundException, OperationFailedException {
         if (currentSale == null) {
             throw new IllegalStateException("Registering items before initiating a new sale");
@@ -145,8 +143,5 @@ public class Controller {
         accountingSystem.updateToAccountingSystem(currentSale);
         currentSale.printReceipt(printer);
         currentSale = null;
-    }
-
-    public void addRegisterObserver(TotalRevenueView totalRevenueView) {
     }
 }

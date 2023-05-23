@@ -38,10 +38,8 @@ public class SaleOutput {
      * @return Pretty printing of sale, with items sorted by time of registration.
      */
     public String createOpenSaleString() {
-        // Sorterar listan efter när den reggats.
         sortShoppingCartListAfterDescendingTimeOrder();
 
-        // Pretty printing
         StringBuilder builder = new StringBuilder();
         updateSaleInfo();
         builder.append(saleInfo);
@@ -56,10 +54,8 @@ public class SaleOutput {
      * @return Pretty printing of sale, with items sorted alphabetically.
      */
     public String createCheckoutString() {
-        // Sorterar listan per namn
         sortShoppingCartListAfterAscendingNameOrder();
 
-        // Pretty printing
         StringBuilder builder = new StringBuilder();
         updateSaleInfo();
         builder.append(saleInfo);
@@ -75,13 +71,8 @@ public class SaleOutput {
     private void updateSaleInfo() {
         List<SaleItemDTO> saleItems = getSaleItemsInfo();
 
-        // Totalbelopp
         Amount runningTotal = sale.getTotalAmount() == null ? sale.calculateRunningTotal() : sale.getTotalAmount();
-
-        // Momsberäkning
         Amount totalVATAmount = sale.getTotalVAT() == null? sale.calculateTotalVATAmount() : sale.getTotalVAT();
-
-        // Rabattberäkning
         Amount totalDiscounts = sale.getDiscountAmount() == null? new Amount(0) : sale.getDiscountAmount();
 
         this.saleInfo = new SaleDTO(

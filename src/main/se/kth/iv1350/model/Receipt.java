@@ -32,10 +32,8 @@ public class Receipt {
     public String toString() {
         List<Item> listOfItems = new ArrayList<>(sale.getCollectionOfItems());
 
-        // Sorterar listan per namn
         Collections.sort(listOfItems, Comparator.comparing(Item::getName));
 
-        // Pretty printing
         StringBuilder builder = new StringBuilder();
         builder.append("%-22s%s%n".formatted("", "RECEIPT"));
         builder.append("%-19s%s%n".formatted("", "Grocery store"));

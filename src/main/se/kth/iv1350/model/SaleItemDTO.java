@@ -4,8 +4,6 @@ import se.kth.iv1350.integration.ItemDTO;
 
 import java.util.Objects;
 
-// TODO ska discountDTO finnas med i SaleDTO och/eller SaleItemDTO?
-
 /**
  * Contains information about a registered item (item info, quantity and total price) as a Data Transfer Object.
  */

@@ -8,7 +8,7 @@ import se.kth.iv1350.integration.Printer;
 import java.io.IOException;
 
 /**
- * Contains the <code>main</code> method. Performs all startup
+ * Contains the <code>main</code> method. Performs all startups
  * of the application.
  */
 public class Main {

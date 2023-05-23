@@ -2,9 +2,6 @@ package se.kth.iv1350.model;
 import java.util.List;
 import java.util.Objects;
 
-
-// TODO ska discountDTO finnas med i SaleDTO och/eller SaleItemDTO?
-
 /**
  * Contains information about on particular Sale as a Data Transfer Object.
  */
@@ -13,7 +10,6 @@ public class SaleDTO {
     private final Amount totalPrice;
     private final Amount totalVATAmount;
     private final Amount totalDiscounts;
-    public enum finalPrice {totalPrice};
 
     /**
      * Creates a new instance representing a particular sale.
@@ -74,7 +70,6 @@ public class SaleDTO {
 
     @Override
     public String toString() {
-        // Pretty printing
         StringBuilder builder = new StringBuilder();
         for (SaleItemDTO itemInfo: saleItemsInfo) {
             builder.append("%-40s%s%n".formatted(itemInfo.getName(), itemInfo.getTotalPrice()));

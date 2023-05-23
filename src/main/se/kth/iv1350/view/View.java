@@ -77,7 +77,6 @@ public class View {
             logger.logException(ex);
             errorMessageHandler.showErrorMessage("No connection to inventory system. Try again.");
         } catch (IllegalArgumentException ex) {
-            // TODO Hur hanterar vi denna?
             writeToLogAndUI("The item ID has to be a positive number. Try again.", ex);
         } catch (Exception exc) {
             writeToLogAndUI("Failed to register sale, please try again.", exc);
@@ -107,7 +106,6 @@ public class View {
             logger.logException(ex);
             errorMessageHandler.showErrorMessage("No connection to inventory system. Try again.");
         } catch (IllegalArgumentException ex) {
-            // TODO Hur hanterar vi denna?
             writeToLogAndUI("The item ID has to be a positive number. Try again.", ex);
         } catch (Exception exc) {
             writeToLogAndUI("Failed to register sale, please try again.", exc);
@@ -136,7 +134,6 @@ public class View {
             logger.logException(ex);
             errorMessageHandler.showErrorMessage("No connection to inventory system. Try again.");
         } catch (IllegalArgumentException ex) {
-            // TODO Hur hanterar vi denna?
             writeToLogAndUI("The item ID has to be a positive number. Try again.", ex);
         } catch (Exception exc) {
             writeToLogAndUI("Failed to register sale, please try again.", exc);
@@ -162,7 +159,6 @@ public class View {
             logger.logException(ex);
             errorMessageHandler.showErrorMessage("No connection to inventory system. Try again.");
         } catch (IllegalArgumentException ex) {
-            // TODO Hur hanterar vi denna?
             writeToLogAndUI("The item ID has to be a positive number. Try again.", ex);
         } catch (Exception exc) {
             writeToLogAndUI("Failed to register sale, please try again.", exc);

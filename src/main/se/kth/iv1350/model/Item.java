@@ -31,14 +31,7 @@ public class Item {
     public Item(ItemDTO item){
         this(item, 1);
     }
-    @Deprecated
-    public void addItem(Item anotherItem){
-        //TODO denna är bättre i sale
-        this.timeOfUpdate = LocalDateTime.now();
-        if (this.equals(anotherItem)) {
-            addToQuantity(anotherItem.getQuantity());
-        }
-    }
+
     /**
      * Set the quantity.
      * @param  quantity nbr of items.
@@ -128,23 +121,5 @@ public class Item {
 
         if (quantity != item.quantity) return false;
         return itemInfo.equals(item.itemInfo);
-    }
-    /**
-     * Increment an already added item when it's more than one of the same.
-     */
-    @Deprecated
-    public void increment(){
-        this.timeOfUpdate = LocalDateTime.now();
-        this.quantity++;
-    }
-
-    /**
-     * Decrement an already added item when it's more than one of the same.
-     */
-    @Deprecated
-    public void decrement(){
-        //TODO denna används väl inte?
-        this.timeOfUpdate = LocalDateTime.now();
-        this.quantity--;
     }
 }

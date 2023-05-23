@@ -7,7 +7,7 @@ public interface RegisterObserver {
 
     /**
      * Invoked when a sale is paid.
-     * @param totalRevenue The total revenue of POS.
+     * @param totalRevenue The total revenue since the program started.
      */
     void totalRevenueChanged(Amount totalRevenue);
 }

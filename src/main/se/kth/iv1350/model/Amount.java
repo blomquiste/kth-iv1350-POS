@@ -17,8 +17,15 @@ public class Amount {
      * @param amount The amount represented by the newly created instance.
      */
     public Amount(double amount){
+
         this(amount, new Locale("sv", "SE"));
     }
+
+    /**
+     * Creates a new instance, representing the specified amount
+     * @param amount the amount represented
+     * @param locale the currency based on location
+     */
     public Amount(double amount, Locale locale) {
         this.currency = Currency.getInstance(locale);
         this.locale = locale;
@@ -95,7 +102,6 @@ public class Amount {
      * @return the amount as a floating point number.
      */
     public Double getAmount() {
-        // TODO skall den returnera en Amount istället?
         return amount;}
 
     @Override

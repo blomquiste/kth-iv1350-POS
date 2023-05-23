@@ -19,7 +19,6 @@ public class Sale {
     private Amount totalAmount;
     private Amount totalVAT;
     private Amount discountAmount;
-    private Amount totalRevenue;
 
     /**
      * Creates a new instance, representing a sale made by a customer.
@@ -85,14 +84,12 @@ public class Sale {
      * @return The running total as a {@link Amount}.
      */
     Amount calculateRunningTotal() {
-        // Totalbelopp
         Amount runningTotal = new Amount(0);
         List<Amount> totalPrices = getCollectionOfItems()
                 .stream()
                 .map(Item::getTotalPrice)
                 .collect(toList());
         runningTotal = runningTotal.plus(totalPrices);
-//        runningTotal = runningTotal.multiply(discount.getDiscountMultiplier());
 
         return runningTotal;
     }
@@ -102,7 +99,6 @@ public class Sale {
      * @return The total VAT amount as a {@link Amount}.
      */
     Amount calculateTotalVATAmount() {
-        // Momsberäkning
         Amount totalVATAmount = new Amount(0);
         List<Amount> vatAmounts = getCollectionOfItems().stream().map(Item::getVatAmount).collect(toList());
         totalVATAmount = totalVATAmount.plus(vatAmounts);
@@ -186,6 +182,9 @@ public class Sale {
         itemRegistry.updateInventory(getCollectionOfItems());
     }
 
+    /**
+     * Ends the sale by calculating VAT and discount and updates the total amount.
+     */
     public void endSale() {
         Amount runningTotal = calculateRunningTotal();
         Amount runningVAT = calculateTotalVATAmount();
@@ -197,7 +196,6 @@ public class Sale {
             this.totalAmount = new Amount(runningTotal);
             this.totalVAT = new Amount(runningVAT);
         }
-
     }
 
     private void notifyObservers() {
@@ -205,6 +203,11 @@ public class Sale {
             obs.totalRevenueChanged(this.totalAmount);
         }
     }
+
+    /**
+     * Adds observer to the list of observers
+     * @param observer the observer being added
+     */
     public void addObserver(RegisterObserver observer) {
         registerObservers.add(observer);
     }
