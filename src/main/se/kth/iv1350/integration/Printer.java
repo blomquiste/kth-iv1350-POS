@@ -12,7 +12,6 @@ public class Printer {
      * Creates an instance of {@link Printer}
      */
     public Printer(){
-        //TODO construct
     }
 
     /**
@@ -25,6 +24,5 @@ public class Printer {
         System.out.println("----------------- Receipt follows ----------------");
         System.out.println(receipt);
         System.out.println("------------------ End of receipt ----------------");
-
     }
 }

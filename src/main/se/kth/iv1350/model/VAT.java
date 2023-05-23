@@ -1,13 +1,7 @@
 package se.kth.iv1350.model;
 
-// TODO Is this considered to be a DTO? (SHOW STOPPER)
-// TODO @Override toString()
-// TODO Should the rates get collected from a database (NICE TO HAVE)
-// TODO Should it be country based? Where the default for now is Sweden?
-// https://www.verksamt.se/web/international/running/vat
-// https://skatteverket.se/servicelankar/otherlanguages/inenglishengelska/businessesandemployers/startingandrunningaswedishbusiness/declaringtaxesbusinesses/vat/vatratesongoodsandservices.4.676f4884175c97df419255d.html
-
-/** Contains information about VAT.
+/**
+ * Contains information about VAT.
  *  The 25% VAT rate applies to most of the goods and services you are likely to sell in Sweden.
  *
  *  VAT is normally 12% on foodstuffs. This refers to all processed or unprocessed substances or goods intended
@@ -18,7 +12,6 @@ package se.kth.iv1350.model;
  *  passenger transport (taxis, buses, flights and trains) in Sweden and concerts.
  */
 public class VAT {
-//    private Locale locale; // If the POS wants to go global. (<3/e)
     private int vatRateGroupCode;
     private double vatRate;
 

@@ -18,7 +18,6 @@ public class Display {
      * @param saleOutput The display output
      */
     public void displayOpenSale(SaleOutput saleOutput) {
-        // TODO Eventuellt ändra till public String createRunningSaleString()
         System.out.println("----------------- Display follows ----------------");
         System.out.println(saleOutput.createOpenSaleString());
         System.out.println("------------------ End of Display ----------------");

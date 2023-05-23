@@ -46,11 +46,9 @@ public class AccountingSystem {
                 discounts = new Amount(Double.parseDouble(splitArray[2]));
             }
         } catch (FileNotFoundException ex){
-            // TODO Kan man kasta bara ex? Kommer den då skickas som en IOException?
             logger.logException(ex);
             throw ex;
         } catch (IOException ex){
-            // TODO ska addItemData loggas här?
             logger.logException(ex);
             throw ex;
         }

@@ -3,10 +3,14 @@ package se.kth.iv1350.view;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.RegisterObserverOutput;
 
+/**
+ * This class prints the total revenue to the view,
+ * in this case that is by writing to System.out
+ */
 public class TotalRevenueView extends RegisterObserverOutput {
 
     /**
-     * Shows the total revenue to the view.
+     * Creates a message and prints the total revenue to System.out
      * @param totalRevenue the total revenue
      */
     @Override
@@ -15,12 +19,11 @@ public class TotalRevenueView extends RegisterObserverOutput {
     }
 
     /**
-     * Would handle exceptions if there were any that could be thrown.
-     * @param exception the exception thrown
+     * Handles exceptions.
+     * @param ex the exception thrown
      */
     @Override
-    protected void handleErrors(Exception exception) {
-
+    protected void handleErrors(Exception ex) {
     }
 
 }

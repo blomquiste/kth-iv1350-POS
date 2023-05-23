@@ -5,14 +5,11 @@ import se.kth.iv1350.model.Amount;
 
 import java.util.Objects;
 
-//TODO @Override toString()?
-// TODO Move to integration layer?
-
 /**
  * Contains information about one particular item (as a Data Transfer Object).
  */
 public class ItemDTO {
-    private final int itemID; // Alt. a String
+    private final int itemID;
     private final String name;
     private final String description;
     private final Amount price;
@@ -65,9 +62,6 @@ public class ItemDTO {
     public Amount getUnitPrice() {
         return price;
     }
-
-
-    // returnera VAT istället för double?
 
     /**
      * Get the items VAT Rate

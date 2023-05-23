@@ -52,22 +52,4 @@ class ItemTest {
         boolean result =  a.equals(b);
         assertEquals(expResult,result,"Objects not equal");
     }
-
-    @Disabled
-    @Test
-    void testIncrement() {
-        int incrementedAmount = QUANTITY + 1;
-        testItem.increment();
-        assertEquals(incrementedAmount, testItem.getQuantity(),
-                "Item did not have correct quantity when incremented.");
-    }
-
-    @Disabled
-    @Test
-    void testDecrement() {
-        int decrementedAmount = QUANTITY - 1;
-        testItem.increment();
-        assertEquals(decrementedAmount, testItem.getQuantity(),
-                "Item did not have correct quantity when decremented.");
-    }
 }

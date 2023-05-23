@@ -4,7 +4,7 @@ package se.kth.iv1350.model;
  * Represents a cash register. There shall be one instance of this class for each register.
  */
 public class CashRegister {
-    Amount balance;            //TODO should be Amount?
+    Amount balance;
     public static final double INITIAL_BALANCE = 10_000;
 
     /**

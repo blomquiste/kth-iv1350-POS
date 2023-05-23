@@ -18,7 +18,7 @@ public class DiscountRegister {
     private String recordHeader;
     private final String flatFileDb;
     private final String filePath;
-    private Map<Integer, Discount> discountTable = new HashMap<>(); // TODO bör nog ändras till CustomerDTO där en DiscountDTO ingår
+    private Map<Integer, Discount> discountTable = new HashMap<>();
     private enum Discount {
         STAFF,
         MEMBER}
@@ -49,11 +49,9 @@ public class DiscountRegister {
                 this.discountTable.put(Integer.parseInt(splitArray[0]), Discount.valueOf(splitArray[1]));
             }
         } catch (FileNotFoundException ex){
-            // TODO Kan man kasta bara ex? Kommer den då skickas som en IOException?
             logger.logException(ex);
             throw ex;
         } catch (IOException ex){
-            // TODO ska addItemData loggas här?
             logger.logException(ex);
             throw ex;
         }

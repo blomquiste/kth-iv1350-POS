@@ -9,7 +9,7 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 
 /**
- * This class is responsible for the log.
+ * This class is responsible for the exception log.
  */
 public class LogHandler {
     private static final String FILE_PATH = "src/main/se/kth/iv1350/data/";
@@ -24,7 +24,6 @@ public class LogHandler {
 
     /**
      * Writes a log entry describing a thrown exception.
-     *
      * @param exception The exception that shall be logged.
      */
     public void logException(Exception exception) {
