@@ -18,8 +18,6 @@ public class View {
     private ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
     private LogHandler logger;
     private TotalRevenueView totalRevenueView;
-    private TotalRevenueFileOutput totalRevenueFileOutput;
-
 
     /**
      * Creates a new instance.
@@ -29,8 +27,6 @@ public class View {
         this.contr = contr;
         totalRevenueView = new TotalRevenueView();
         contr.addObserver(totalRevenueView);
-        totalRevenueFileOutput = new TotalRevenueFileOutput();
-        contr.addObserver(totalRevenueFileOutput);
         this.logger = new LogHandler();
     }
 
