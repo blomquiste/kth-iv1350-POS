@@ -15,7 +15,8 @@ public abstract class RegisterObserverOutput
      */
     @Override
     public void totalRevenueChanged(Amount newRevenue) {
-        showTotalRevenue(newRevenue);
+        totalRevenue = totalRevenue.plus(newRevenue);
+        showTotalRevenue(totalRevenue);
     }
 
     /**
@@ -23,9 +24,8 @@ public abstract class RegisterObserverOutput
      * @param newRevenue the newest revenue
      */
     private void showTotalRevenue(Amount newRevenue) {
-        totalRevenue = totalRevenue.plus(newRevenue);
         try {
-            doShowTotalRevenue(totalRevenue);
+            doShowTotalRevenue(newRevenue);
         } catch (Exception ex) {
             handleErrors(ex);
         }
